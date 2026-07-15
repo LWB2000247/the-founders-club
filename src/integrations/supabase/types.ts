@@ -1,7 +1,6 @@
 export type AppRole = 'admin' | 'member'
 export type SuggestionKind = 'change' | 'channel'
 export type SuggestionStatus = 'pending' | 'reviewed' | 'done' | 'rejected'
-export type BookingStatus = 'pending' | 'confirmed' | 'done' | 'rejected'
 
 export interface Database {
   public: {
@@ -130,28 +129,6 @@ export interface Database {
         Update: Record<PropertyKey, never>
         Relationships: []
       }
-      consulting_bookings: {
-        Row: {
-          id: string
-          name: string
-          email: string
-          topic: string
-          status: BookingStatus
-          created_at: string
-        }
-        Insert: {
-          id?: string
-          name: string
-          email: string
-          topic: string
-          status?: BookingStatus
-          created_at?: string
-        }
-        Update: {
-          status?: BookingStatus
-        }
-        Relationships: []
-      }
       suggestions: {
         Row: {
           id: string
@@ -191,7 +168,6 @@ export interface Database {
       app_role: AppRole
       suggestion_kind: SuggestionKind
       suggestion_status: SuggestionStatus
-      booking_status: BookingStatus
     }
     CompositeTypes: Record<PropertyKey, never>
   }

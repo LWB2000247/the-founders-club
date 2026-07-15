@@ -8,7 +8,6 @@ create extension if not exists "pgcrypto";
 create type public.app_role           as enum ('admin', 'member');
 create type public.suggestion_kind    as enum ('change', 'channel');
 create type public.suggestion_status  as enum ('pending', 'reviewed', 'done', 'rejected');
-create type public.booking_status     as enum ('pending', 'confirmed', 'done', 'rejected');
 
 -- ─── Tables ────────────────────────────────────────────────────────────────────
 
@@ -65,16 +64,6 @@ create table public.event_rsvps (
   user_id    uuid        not null references auth.users(id) on delete cascade,
   created_at timestamptz not null default now(),
   unique(event_id, user_id)
-);
-
--- consulting_bookings  (publicly submittable)
-create table public.consulting_bookings (
-  id         uuid                  primary key default gen_random_uuid(),
-  name       text                  not null,
-  email      text                  not null,
-  topic      text                  not null,
-  status     public.booking_status not null default 'pending',
-  created_at timestamptz           not null default now()
 );
 
 -- suggestions
@@ -138,7 +127,6 @@ alter table public.channels           enable row level security;
 alter table public.messages           enable row level security;
 alter table public.events             enable row level security;
 alter table public.event_rsvps        enable row level security;
-alter table public.consulting_bookings enable row level security;
 alter table public.suggestions        enable row level security;
 
 -- profiles
@@ -203,23 +191,6 @@ create policy "users can cancel own rsvp"
   on public.event_rsvps for delete
   to authenticated using (auth.uid() = user_id);
 
--- consulting_bookings
-create policy "anyone can submit a booking"
-  on public.consulting_bookings for insert
-  to anon, authenticated with check (true);
-
-create policy "admins can read all bookings"
-  on public.consulting_bookings for select
-  to authenticated using (public.has_role(auth.uid(), 'admin'));
-
-create policy "admins can update bookings"
-  on public.consulting_bookings for update
-  to authenticated using (public.has_role(auth.uid(), 'admin'));
-
-create policy "admins can delete bookings"
-  on public.consulting_bookings for delete
-  to authenticated using (public.has_role(auth.uid(), 'admin'));
-
 -- suggestions
 create policy "members can view own suggestions"
   on public.suggestions for select
@@ -250,13 +221,11 @@ grant select                    on public.channels            to authenticated;
 grant select, insert, delete    on public.messages            to authenticated;
 grant select, insert            on public.event_rsvps         to authenticated;
 grant select                    on public.events              to authenticated;
-grant insert                    on public.consulting_bookings to anon, authenticated;
 grant select, insert            on public.suggestions         to authenticated;
 
 -- Allow admins full access (enforced by RLS + has_role)
 grant all on public.profiles            to authenticated;
 grant all on public.events              to authenticated;
-grant all on public.consulting_bookings to authenticated;
 grant all on public.suggestions         to authenticated;
 grant all on public.channels            to authenticated;
 grant all on public.user_roles          to authenticated;

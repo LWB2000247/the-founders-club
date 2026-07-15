@@ -6,7 +6,7 @@ export const Route = createFileRoute('/')({
 })
 
 const stats = [
-  { value: '$0', label: 'Membership fee — forever' },
+  { value: '€0', label: 'Membership fee — forever' },
   { value: '4+', label: 'Channels to start networking in' },
   { value: '1:1', label: 'Calls with the team, on request' },
 ]
@@ -59,8 +59,8 @@ function LandingPage() {
             <Link to="/auth">
               <Button size="lg" className="w-full sm:w-auto">Join the club</Button>
             </Link>
-            <Link to="/book-call">
-              <Button size="lg" variant="outline" className="w-full sm:w-auto">Book a call</Button>
+            <Link to="/contact">
+              <Button size="lg" variant="outline" className="w-full sm:w-auto">Contact us</Button>
             </Link>
           </div>
         </div>

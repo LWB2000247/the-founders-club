@@ -61,7 +61,7 @@ export function Navbar() {
             </>
           ) : (
             <>
-              <Link to="/book-call" className={navLinkClass}>Book a call</Link>
+              <Link to="/contact" className={navLinkClass}>Contact</Link>
               <Link to="/auth">
                 <Button size="sm">Join free</Button>
               </Link>
@@ -100,7 +100,7 @@ export function Navbar() {
             </>
           ) : (
             <>
-              <Link to="/book-call" className={navLinkClass} onClick={() => setMenuOpen(false)}>Book a call</Link>
+              <Link to="/contact" className={navLinkClass} onClick={() => setMenuOpen(false)}>Contact</Link>
               <Link to="/auth" onClick={() => setMenuOpen(false)}>
                 <Button className="w-full">Join free</Button>
               </Link>

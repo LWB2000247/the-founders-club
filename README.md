@@ -89,7 +89,7 @@ This unlocks the **Admin** tab in the navbar.
 |------|--------|-------------|
 | `/` | Public | Landing page |
 | `/auth` | Public | Sign up / sign in |
-| `/book-call` | Public | 1:1 consulting booking |
+| `/contact` | Public | Direct phone + email contact |
 | `/dashboard` | Members | View and edit profile |
 | `/events` | Members | Meetups + RSVP |
 | `/chat` | Members | Multi-channel realtime chat |

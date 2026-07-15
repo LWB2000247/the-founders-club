@@ -24,7 +24,6 @@ export const Route = createFileRoute('/admin')({
 
 type Profile = Database['public']['Tables']['profiles']['Row']
 type Event = Database['public']['Tables']['events']['Row']
-type Booking = Database['public']['Tables']['consulting_bookings']['Row']
 type Suggestion = Database['public']['Tables']['suggestions']['Row']
 
 /* ── Members Tab ── */
@@ -206,79 +205,6 @@ function EventsTab() {
   )
 }
 
-/* ── Bookings Tab ── */
-function BookingsTab() {
-  const [bookings, setBookings] = useState<Booking[]>([])
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    supabase.from('consulting_bookings').select('*').order('created_at', { ascending: false })
-      .then(({ data }) => { setBookings(data ?? []); setLoading(false) })
-  }, [])
-
-  const updateStatus = async (id: string, status: Booking['status']) => {
-    const { error } = await supabase.from('consulting_bookings').update({ status }).eq('id', id)
-    if (error) { toast.error('Failed to update'); return }
-    setBookings((prev) => prev.map((b) => b.id === id ? { ...b, status } : b))
-    toast.success('Status updated')
-  }
-
-  const deleteBooking = async (id: string) => {
-    await supabase.from('consulting_bookings').delete().eq('id', id)
-    setBookings((prev) => prev.filter((b) => b.id !== id))
-    toast.success('Booking deleted')
-  }
-
-  if (loading) return <LoadingState />
-
-  return (
-    <div className="rounded-lg border border-[var(--color-border)] overflow-hidden">
-      <table className="w-full text-sm">
-        <thead>
-          <tr className="border-b border-[var(--color-border)] bg-[var(--color-bg-muted)] text-left text-xs text-[var(--color-text-subtle)]">
-            <th className="px-4 py-2">Name</th>
-            <th className="px-4 py-2">Email</th>
-            <th className="px-4 py-2">Topic</th>
-            <th className="px-4 py-2">Status</th>
-            <th className="px-4 py-2">Date</th>
-            <th className="px-4 py-2"></th>
-          </tr>
-        </thead>
-        <tbody>
-          {bookings.map((b) => (
-            <tr key={b.id} className="border-b border-[var(--color-border)] hover:bg-[var(--color-bg-muted)]">
-              <td className="px-4 py-2 font-medium">{b.name}</td>
-              <td className="px-4 py-2 text-[var(--color-text-muted)]">{b.email}</td>
-              <td className="px-4 py-2 max-w-[200px] truncate">{b.topic}</td>
-              <td className="px-4 py-2">
-                <Select value={b.status} onValueChange={(v) => updateStatus(b.id, v as Booking['status'])}>
-                  <SelectTrigger className="h-7 text-xs w-28">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {(['pending', 'confirmed', 'done', 'rejected'] as const).map((s) => (
-                      <SelectItem key={s} value={s}>{s}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </td>
-              <td className="px-4 py-2 text-[var(--color-text-subtle)] whitespace-nowrap">{formatDate(b.created_at)}</td>
-              <td className="px-4 py-2">
-                <button onClick={() => deleteBooking(b.id)} className="text-[var(--color-text-subtle)] hover:text-[var(--color-error)]">
-                  <Trash2 size={14} />
-                </button>
-              </td>
-            </tr>
-          ))}
-          {bookings.length === 0 && (
-            <tr><td colSpan={6} className="px-4 py-8 text-center text-[var(--color-text-muted)]">No bookings yet</td></tr>
-          )}
-        </tbody>
-      </table>
-    </div>
-  )
-}
-
 /* ── Suggestions Tab ── */
 function SuggestionsTab() {
   const [suggestions, setSuggestions] = useState<Suggestion[]>([])
@@ -367,20 +293,18 @@ function AdminPage() {
         <h1 className="text-2xl font-bold">
           Admin <span className="text-[var(--color-gold)]">Backoffice</span>
         </h1>
-        <p className="text-sm text-[var(--color-text-muted)]">Manage members, events, bookings, and suggestions.</p>
+        <p className="text-sm text-[var(--color-text-muted)]">Manage members, events, and suggestions.</p>
       </div>
 
       <Tabs defaultValue="members">
         <TabsList className="mb-6">
           <TabsTrigger value="members">Members</TabsTrigger>
           <TabsTrigger value="events">Events</TabsTrigger>
-          <TabsTrigger value="bookings">Bookings</TabsTrigger>
           <TabsTrigger value="suggestions">Suggestions</TabsTrigger>
         </TabsList>
 
         <TabsContent value="members"><MembersTab /></TabsContent>
         <TabsContent value="events"><EventsTab /></TabsContent>
-        <TabsContent value="bookings"><BookingsTab /></TabsContent>
         <TabsContent value="suggestions"><SuggestionsTab /></TabsContent>
       </Tabs>
     </div>
