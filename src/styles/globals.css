@@ -1,21 +1,31 @@
 @import "tailwindcss";
 
+@theme {
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+  --radius-2xl: 0px;
+}
+
 @layer base {
   :root {
-    --color-bg: #0f172a;
-    --color-bg-card: #1e293b;
-    --color-bg-muted: #1a2540;
-    --color-border: #334155;
-    --color-gold: #f59e0b;
-    --color-gold-hover: #d97706;
-    --color-gold-muted: #fbbf24;
-    --color-text: #f1f5f9;
-    --color-text-muted: #94a3b8;
-    --color-text-subtle: #64748b;
-    --color-error: #ef4444;
-    --color-success: #22c55e;
-    --color-info: #3b82f6;
-    --radius: 0.5rem;
+    --color-bg: #faf9f5;
+    --color-bg-card: #ffffff;
+    --color-bg-muted: #efeee6;
+    --color-bg-inverse: #0d0d0c;
+    --color-border: #0d0d0c;
+    --color-gold: #f0a51c;
+    --color-gold-hover: #d38f10;
+    --color-gold-muted: #f6c664;
+    --color-text: #0d0d0c;
+    --color-text-inverse: #faf9f5;
+    --color-text-muted: #55534a;
+    --color-text-subtle: #8c8a7c;
+    --color-error: #b0271b;
+    --color-success: #14622f;
+    --color-info: #1d4ed8;
+    --radius: 0px;
   }
 
   * {
@@ -36,7 +46,7 @@
 
   ::selection {
     background-color: var(--color-gold);
-    color: #000;
+    color: #0d0d0c;
   }
 
   ::-webkit-scrollbar {
@@ -48,6 +58,5 @@
   }
   ::-webkit-scrollbar-thumb {
     background: var(--color-border);
-    border-radius: 3px;
   }
 }

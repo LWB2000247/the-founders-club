@@ -13,7 +13,7 @@ export const Route = createRootRoute({
       </main>
       <Footer />
       <CookieBanner />
-      <Toaster theme="dark" position="top-right" richColors />
+      <Toaster theme="light" position="top-right" richColors />
     </div>
   ),
 })

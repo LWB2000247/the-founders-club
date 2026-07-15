@@ -1,126 +1,127 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { Button } from '@/components/ui/button'
-import { Users, Lock, User } from 'lucide-react'
 
 export const Route = createFileRoute('/')({
   component: LandingPage,
 })
 
+const stats = [
+  { value: '$0', label: 'Membership fee — forever' },
+  { value: '4+', label: 'Channels to start networking in' },
+  { value: '1:1', label: 'Calls with the team, on request' },
+]
+
+const reasons = [
+  {
+    n: '01',
+    title: 'Free to join',
+    desc: 'No subscriptions, no hidden fees, no "premium tier." Founders.Club is free forever for every member.',
+  },
+  {
+    n: '02',
+    title: 'Private channels',
+    desc: 'A members-only space split into topic channels — intros, marketing, tech, and more — to discuss ideas, share wins, and find collaborators.',
+  },
+  {
+    n: '03',
+    title: 'In-person events',
+    desc: 'Once the room fills up, we organize meetups and events for members to trade war stories offline.',
+  },
+]
+
 function LandingPage() {
   return (
     <div>
       {/* Hero */}
-      <section className="relative overflow-hidden">
-        {/* Gradient background */}
-        <div
-          className="absolute inset-0 -z-10"
-          style={{
-            background:
-              'radial-gradient(ellipse 80% 60% at 50% -10%, rgba(245,158,11,0.18) 0%, transparent 70%), var(--color-bg)',
-          }}
-        />
-
-        {/* Hero image (abstract placeholder with SVG pattern) */}
-        <div className="relative mx-auto max-w-7xl px-4 pt-24 pb-16 sm:px-6 sm:pt-32 sm:pb-24 text-center">
-          <div className="mx-auto mb-8 max-w-3xl">
-            <div
-              className="mx-auto mb-10 h-56 sm:h-72 w-full max-w-2xl rounded-2xl border border-[var(--color-border)] overflow-hidden shadow-2xl"
-              aria-hidden="true"
-              style={{
-                background:
-                  'linear-gradient(135deg, #1e293b 0%, #0f172a 50%, #1e293b 100%)',
-              }}
-            >
-              <svg
-                className="h-full w-full opacity-60"
-                viewBox="0 0 800 288"
-                xmlns="http://www.w3.org/2000/svg"
-                preserveAspectRatio="xMidYMid slice"
-              >
-                <defs>
-                  <radialGradient id="glow" cx="50%" cy="50%" r="50%">
-                    <stop offset="0%" stopColor="#f59e0b" stopOpacity="0.3" />
-                    <stop offset="100%" stopColor="#f59e0b" stopOpacity="0" />
-                  </radialGradient>
-                </defs>
-                <rect width="800" height="288" fill="url(#glow)" />
-                {/* Abstract network of entrepreneurs */}
-                {[
-                  [200, 100], [400, 60], [600, 110], [300, 180], [500, 200],
-                  [150, 220], [650, 170], [400, 144],
-                ].map(([cx, cy], i) => (
-                  <g key={i}>
-                    <circle cx={cx} cy={cy} r={i === 7 ? 22 : 16} fill="#f59e0b" fillOpacity={i === 7 ? 0.7 : 0.4} />
-                    <circle cx={cx} cy={cy} r={i === 7 ? 8 : 6} fill="#f59e0b" fillOpacity={0.9} />
-                  </g>
-                ))}
-                {/* Lines connecting nodes */}
-                {[
-                  [200, 100, 400, 60], [400, 60, 600, 110], [200, 100, 300, 180],
-                  [400, 60, 400, 144], [600, 110, 500, 200], [300, 180, 500, 200],
-                  [150, 220, 300, 180], [650, 170, 600, 110], [400, 144, 300, 180],
-                  [400, 144, 500, 200],
-                ].map(([x1, y1, x2, y2], i) => (
-                  <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#f59e0b" strokeOpacity="0.25" strokeWidth="1.5" />
-                ))}
-              </svg>
-            </div>
+      <section className="border-b-2 border-[var(--color-border)] px-4 pt-16 pb-14 sm:px-6 sm:pt-24 sm:pb-20">
+        <div className="mx-auto max-w-5xl">
+          <div className="mb-6 flex items-center gap-2">
+            <span className="h-2.5 w-2.5 bg-[var(--color-gold)]" />
+            <span className="text-xs font-bold uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
+              Est. 2026 — membership is free
+            </span>
           </div>
 
-          <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">
-            The club for people who{' '}
+          <h1 className="text-6xl font-black uppercase leading-[0.95] tracking-tight sm:text-8xl">
+            The club
+            <br />
+            for people who
+            <br />
             <span className="text-[var(--color-gold)]">build.</span>
           </h1>
-          <p className="mx-auto mt-4 max-w-xl text-lg text-[var(--color-text-muted)]">
+
+          <p className="mt-8 max-w-lg text-lg text-[var(--color-text-muted)]">
             A private community of founders, makers, and entrepreneurs. Connect,
-            share, and grow together.
-          </p>
-          <p className="mt-2 text-sm font-medium text-[var(--color-text-subtle)]">
-            Free forever · No payment required
+            share, and grow together — no dues, ever.
           </p>
 
-          <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Link to="/auth">
-              <Button size="lg" className="min-w-[160px]">Join the club</Button>
+              <Button size="lg" className="w-full sm:w-auto">Join the club</Button>
             </Link>
             <Link to="/book-call">
-              <Button size="lg" variant="outline" className="min-w-[160px]">Book a call</Button>
+              <Button size="lg" variant="outline" className="w-full sm:w-auto">Book a call</Button>
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Feature cards */}
-      <section className="mx-auto max-w-7xl px-4 pb-24 sm:px-6">
-        <div className="grid gap-6 sm:grid-cols-3">
-          {[
-            {
-              icon: Users,
-              title: 'Free to join',
-              desc: 'No subscriptions, no hidden fees. Founders.Club is free forever for all members.',
-            },
-            {
-              icon: Lock,
-              title: 'Private community',
-              desc: 'A members-only space to discuss ideas, share wins, and collaborate in private channels.',
-            },
-            {
-              icon: User,
-              title: 'Own your profile',
-              desc: 'Your profile belongs to you. Showcase your venture and connect with like-minded builders.',
-            },
-          ].map(({ icon: Icon, title, desc }) => (
+      {/* Stat grid */}
+      <section className="grid grid-cols-1 border-b-2 border-[var(--color-border)] sm:grid-cols-3">
+        {stats.map((s, i) => (
+          <div
+            key={s.label}
+            className={`px-6 py-10 sm:px-8 ${
+              i > 0 ? 'border-t-2 sm:border-t-0 sm:border-l-2 border-[var(--color-border)]' : ''
+            }`}
+          >
+            <div className="text-5xl font-black tracking-tight text-[var(--color-gold)] sm:text-6xl">
+              {s.value}
+            </div>
+            <p className="mt-2 text-sm font-semibold uppercase tracking-wide text-[var(--color-text-muted)]">
+              {s.label}
+            </p>
+          </div>
+        ))}
+      </section>
+
+      {/* Reasons / manifesto list */}
+      <section className="mx-auto max-w-5xl px-4 py-16 sm:px-6 sm:py-24">
+        <h2 className="mb-10 text-xs font-bold uppercase tracking-[0.2em] text-[var(--color-text-subtle)]">
+          Why join
+        </h2>
+
+        <div className="border-t-2 border-[var(--color-border)]">
+          {reasons.map((r) => (
             <div
-              key={title}
-              className="flex flex-col gap-3 rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-card)] p-6 hover:border-[var(--color-gold)]/40 transition-colors"
+              key={r.n}
+              className="grid grid-cols-1 gap-3 border-b-2 border-[var(--color-border)] py-8 sm:grid-cols-12 sm:gap-6"
             >
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[var(--color-gold)]/10">
-                <Icon className="h-5 w-5 text-[var(--color-gold)]" />
+              <div className="sm:col-span-2">
+                <span className="text-sm font-bold text-[var(--color-text-subtle)]">{r.n}</span>
               </div>
-              <h3 className="font-semibold">{title}</h3>
-              <p className="text-sm text-[var(--color-text-muted)]">{desc}</p>
+              <div className="sm:col-span-4">
+                <h3 className="text-2xl font-black uppercase tracking-tight">{r.title}</h3>
+              </div>
+              <div className="sm:col-span-6">
+                <p className="text-[var(--color-text-muted)]">{r.desc}</p>
+              </div>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* Closing CTA band */}
+      <section className="border-t-2 border-[var(--color-border)] bg-[var(--color-bg-inverse)] px-4 py-16 text-[var(--color-text-inverse)] sm:px-6 sm:py-20">
+        <div className="mx-auto flex max-w-5xl flex-col items-start justify-between gap-8 sm:flex-row sm:items-center">
+          <h2 className="text-4xl font-black uppercase leading-none tracking-tight sm:text-5xl">
+            Join free.
+            <br />
+            No catch.
+          </h2>
+          <Link to="/auth">
+            <Button size="lg" className="w-full sm:w-auto">Create your account</Button>
+          </Link>
         </div>
       </section>
     </div>

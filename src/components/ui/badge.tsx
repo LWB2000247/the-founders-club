@@ -3,15 +3,15 @@ import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
 
 const badgeVariants = cva(
-  'inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)] focus:ring-offset-2',
+  'inline-flex items-center border-2 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)] focus:ring-offset-2',
   {
     variants: {
       variant: {
-        default: 'border-transparent bg-[var(--color-gold)] text-black',
-        secondary: 'border-transparent bg-[var(--color-bg-muted)] text-[var(--color-text-muted)]',
-        destructive: 'border-transparent bg-red-600 text-white',
-        outline: 'text-[var(--color-text)] border-[var(--color-border)]',
-        success: 'border-transparent bg-green-700 text-green-100',
+        default: 'border-[var(--color-border)] bg-[var(--color-gold)] text-black',
+        secondary: 'border-[var(--color-border)] bg-[var(--color-bg-muted)] text-[var(--color-text-muted)]',
+        destructive: 'border-[var(--color-border)] bg-[var(--color-error)] text-white',
+        outline: 'text-[var(--color-text)] border-[var(--color-border)] bg-transparent',
+        success: 'border-[var(--color-border)] bg-[var(--color-success)] text-white',
       },
     },
     defaultVariants: {
